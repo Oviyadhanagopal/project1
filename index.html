@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    #PacMan {
+      position: absolute;
+      left: 0;
+      top: 100px;
+    }
+  </style>
+</head>
+<body>
+  <img id="PacMan" src="D:/PG CS/pg sem1/javascript/week3 unit3/assignment/PacMan1.png" width="100">
+
+  <script>
+    var pos = 0;
+    let pageWidth = window.innerWidth;
+
+    // PacMan images for open/close mouth in both directions
+    const pacArray = [
+      ["D:/PG CS/pg sem1/javascript/week3 unit3/assignment/PacMan1.png", "D:/PG CS/pg sem1/javascript/week3 unit3/assignment/PacMan2.png"], // right
+      ["D:/PG CS/pg sem1/javascript/week3 unit3/assignment/PacMan3.png", "D:/PG CS/pg sem1/javascript/week3 unit3/assignment/PacMan4.png"], // left
+    ];
+
+    var direction = 0;
+    var focus = 0;
+
+    function Run() {
+      let img = document.getElementById("PacMan");
+      let imgWidth = img.width;
+
+      focus = (focus + 1) % 2;
+      direction = checkPageBounds(direction, imgWidth, pos, pageWidth);
+
+      img.src = pacArray[direction][focus];
+
+      if (direction) {
+        pos -= 20; // move left
+      } else {
+        pos += 20; // move right
+      }
+
+      img.style.left = pos + "px";
+    }
+
+    setInterval(Run, 200);
+
+    function checkPageBounds(direction, imgWidth, pos, pageWidth) {
+      if (pos + imgWidth > pageWidth) direction = 1;
+      if (pos < 0) direction = 0;
+      return direction;
+    }
+  </script>
+</body>
+</html>
